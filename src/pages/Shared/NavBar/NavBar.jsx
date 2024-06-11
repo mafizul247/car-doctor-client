@@ -20,13 +20,15 @@ const NavBar = () => {
     const navItems = <>
         <li><NavLink to='/'>Home</NavLink></li>
         <li><NavLink to='/contact'>Contact</NavLink></li>
-        <li>{
+        {
             user && user?.email ? <>
-                <button onClick={hangleLogOut}>LogOut</button>
+                <li><NavLink to='/bookings'>My Bookings</NavLink></li>
+                <li><button onClick={hangleLogOut}>LogOut</button></li>
             </> : <>
-                <NavLink to='/login'>Login</NavLink>
+                <li><NavLink to='/login'>Login</NavLink></li>
             </>
-        }</li>
+        }
+
     </>
     return (
         <div className="navbar bg-base-100">

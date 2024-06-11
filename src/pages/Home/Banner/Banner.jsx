@@ -5,14 +5,8 @@ import image3 from './../../../assets/images/banner/3.jpg'
 import image4 from './../../../assets/images/banner/4.jpg'
 import image5 from './../../../assets/images/banner/5.jpg'
 import image6 from './../../../assets/images/banner/6.jpg'
-import { useLocation } from 'react-router-dom';
-import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 
 const Banner = () => {
-    const location = useLocation();
-    if(location.state === 'loading') {
-        return <LoadingSpinner />
-    }
     
     return (
         <div className="carousel w-full rounded-lg">

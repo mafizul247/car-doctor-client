@@ -1,14 +1,8 @@
 import React from 'react';
 import personImage from './../../../assets/images/about_us/person.jpg'
 import partsImage from './../../../assets/images/about_us/parts.jpg'
-import { useLocation } from 'react-router-dom';
-import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 
 const About = () => {
-    const location = useLocation();
-    if (location.state === 'loading') {
-        return <LoadingSpinner />
-    }
     
     return (
         <div className="hero min-h-screen bg-base-100 rounded-lg">

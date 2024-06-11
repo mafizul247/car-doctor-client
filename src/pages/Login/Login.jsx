@@ -59,7 +59,7 @@ const Login = () => {
                                 </label>
                             </div>
                             <div className="form-control mt-6">
-                                <button className="btn btn-primary">Login</button>
+                                <input type="submit" className="btn btn-primary" value="Login" />
                             </div>
                         </form>
                         <p className='text-center text-gray-700'>Don't have an account? <Link to='/sign-up' state={location.state} className='text-orange-600 hover:underline'>Please Sign Up</Link></p>
