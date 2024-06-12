@@ -53,10 +53,6 @@ Start the Node.js REPL: node
 require('crypto').randomBytes(64).toString('hex')
 
 
- 
-
- 
-
 
 ### Installation
 

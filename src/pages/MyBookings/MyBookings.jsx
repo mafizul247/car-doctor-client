@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation, useNavigate  } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2';
 import { toast } from 'react-toastify';
+import useTitle from '../../hooks/useTitle';
 
 const MyBookings = () => {
     const location = useLocation();
@@ -11,6 +12,7 @@ const MyBookings = () => {
         return <LoadingSpinner />
     }
 
+    useTitle('My Booking');
     const { user, logOut } = useContext(AuthContext);
     const [bookings, setBookings] = useState([]);
     const navigate = useNavigate();
@@ -24,9 +26,9 @@ const MyBookings = () => {
         })
             .then(res => res.json())
             .then(data => {
-                if(!data.error) {
+                if (!data.error) {
                     setBookings(data);
-                }else {
+                } else {
                     logOut();
                     navigate('/');
                 }
@@ -139,7 +141,7 @@ const MyBookings = () => {
                                 <td>
                                     {
                                         booking.status === 'confirm' ? <>
-                                        <button  className="btn btn-success btn-xs">{booking.status}</button>
+                                            <button className="btn btn-success btn-xs">{booking.status}</button>
                                         </> : <>
                                             <button onClick={() => handleBookingConfirm(booking)} className="btn btn-warning btn-xs">Pending</button>
                                         </>
