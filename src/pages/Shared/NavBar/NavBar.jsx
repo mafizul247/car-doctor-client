@@ -10,7 +10,7 @@ const NavBar = () => {
     const hangleLogOut = () => {
         logOut()
             .then(() => {
-                toast('Logout Succeffully');
+                toast('Logout Succefully');
             }).catch(error => {
                 console.log(error);
                 toast.error(error.message);

@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from 'react';
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut } from "firebase/auth";
 import app from '../firebase/firebase.config';
 
 export const AuthContext = createContext(null);
@@ -9,6 +9,7 @@ const AuthProvider = ({ children }) => {
     const [user, setuser] = useState(null);
     const [loading, setLoading] = useState(true);
     const [reload, setReload] = useState(null);
+    const googleProvider = new GoogleAuthProvider();
 
     const createUser = (email, password) => {
         setLoading(true);
@@ -20,6 +21,11 @@ const AuthProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, password);
     }
 
+    const googleLogin = () => {
+        setLoading(true);
+        return signInWithPopup(auth, googleProvider);
+    }
+
     const logOut = () => {
         setLoading(true);
         return signOut(auth);
@@ -29,6 +35,22 @@ const AuthProvider = ({ children }) => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             console.log('Auth', currentUser);
             setuser(currentUser);
+            if (currentUser && currentUser.email) {
+                fetch('https://car-doctor-ashy.vercel.app/jwt', {
+                    method: 'POST',
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify({ email: currentUser.email })
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        const token = data.token;
+                        localStorage.setItem('car-access-token', token)
+                    })
+            } else {
+                localStorage.removeItem('car-access-token');
+            }
             setLoading(false);
         })
         return () => {
@@ -41,6 +63,7 @@ const AuthProvider = ({ children }) => {
         loading,
         createUser,
         signIn,
+        googleLogin,
         logOut
     }
 

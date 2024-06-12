@@ -18,7 +18,7 @@ const router = createBrowserRouter([
             { path: 'bookings', element: <PrivateRoute><MyBookings/></PrivateRoute> },
             { path: 'login', element: <Login /> },
             { path: 'sign-up', element: <SignUp /> },
-            { path: 'checkout/:id', element: <PrivateRoute><Checkout /></PrivateRoute>, loader: ({params}) => fetch(`http://localhost:5000/service/${params.id}`) },
+            { path: 'checkout/:id', element: <PrivateRoute><Checkout /></PrivateRoute>, loader: ({params}) => fetch(`https://car-doctor-ashy.vercel.app/service/${params.id}`) },
         ]
     }
 ])

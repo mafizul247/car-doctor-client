@@ -25,7 +25,7 @@ const Checkout = () => {
         const price = form.price.value;
 
         const booking = {serviceId: _id, service: title, img, customerName: name, email, bookingDate: date, price };
-        fetch('http://localhost:5000/bookings', {
+        fetch('https://car-doctor-ashy.vercel.app/bookings', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'

@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import useTitle from '../../hooks/useTitle';
 import { AuthContext } from '../../providers/AuthProvider';
 import { toast } from 'react-toastify';
+import SocialLogin from '../../components/SocialLogin/SocialLogin';
 
 const SignUp = () => {
     useTitle('Sign Up');
@@ -67,6 +68,7 @@ const SignUp = () => {
                             </div>
                         </form>
                         <p className='text-center text-gray-700'>Already have an account? <Link to='/login' className='text-orange-600 hover:underline'>Please Login</Link></p>
+                        <SocialLogin />
                     </div>
                 </div>
                 <div className="hidden md:block">

@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation  } from 'react-router-dom';
+import { useLocation, useNavigate  } from 'react-router-dom';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2';
@@ -11,16 +11,27 @@ const MyBookings = () => {
         return <LoadingSpinner />
     }
 
-    const { user } = useContext(AuthContext);
+    const { user, logOut } = useContext(AuthContext);
     const [bookings, setBookings] = useState([]);
+    const navigate = useNavigate();
+    const token = localStorage.getItem('car-access-token');
 
     useEffect(() => {
-        fetch(`http://localhost:5000/bookings?email=${user?.email}`)
+        fetch(`https://car-doctor-ashy.vercel.app/bookings?email=${user?.email}`, {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        })
             .then(res => res.json())
             .then(data => {
-                setBookings(data);
+                if(!data.error) {
+                    setBookings(data);
+                }else {
+                    logOut();
+                    navigate('/');
+                }
             })
-    }, [user])
+    }, [user, token, logOut, navigate])
 
     const handleDelete = (booking) => {
         Swal.fire({
@@ -33,7 +44,7 @@ const MyBookings = () => {
             confirmButtonText: "Yes, delete it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/bookings/${booking._id}`, {
+                fetch(`https://car-doctor-ashy.vercel.app/bookings/${booking._id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())
@@ -60,7 +71,7 @@ const MyBookings = () => {
             confirmButtonText: "Yes, Update it!"
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`http://localhost:5000/bookings/${booking._id}`, {
+                fetch(`https://car-doctor-ashy.vercel.app/bookings/${booking._id}`, {
                     method: 'PATCH',
                     headers: {
                         'content-type': 'application/json'
