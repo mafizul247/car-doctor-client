@@ -1,13 +1,13 @@
 import React, { useContext } from 'react';
 import useTitle from '../../hooks/useTitle';
-import { useLoaderData, useLocation, useNavigate } from 'react-router-dom';
+import { useLoaderData, useNavigation, useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import { AuthContext } from '../../providers/AuthProvider';
 import { toast } from 'react-toastify';
 
 const Checkout = () => {
-    const location = useLocation();
-    if (location.state === 'loading') {
+    const navigation = useNavigation();
+    if (navigation.state === 'loading') {
         return <LoadingSpinner />
     }
     useTitle('Checkout');

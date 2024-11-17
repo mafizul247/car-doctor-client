@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useNavigation } from 'react-router-dom';
 import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
 import SectionTitle from '../../../components/SectionTitle/SectionTitle';
 import ServiceCard from './ServiceCard';
 
 const Services = () => {
-    const location = useLocation();
-    if (location.state === 'loading') {
+    const navigation = useNavigation();
+    if (navigation.state === 'loading') {
         return <LoadingSpinner />
     }
 

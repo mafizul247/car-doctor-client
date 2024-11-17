@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigation, useNavigate } from 'react-router-dom';
 import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2';
@@ -7,8 +7,8 @@ import { toast } from 'react-toastify';
 import useTitle from '../../hooks/useTitle';
 
 const MyBookings = () => {
-    const location = useLocation();
-    if (location.state === 'loading') {
+    const navigation = useNavigation();
+    if (navigation.state === 'loading') {
         return <LoadingSpinner />
     }
 
